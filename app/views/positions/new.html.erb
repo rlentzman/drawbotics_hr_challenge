@@ -1,0 +1,7 @@
+<%= form_for @position do |p| %>
+  <%= p.label :title, "Enter position's title" %>
+  <%= p.text_field :title %>
+  <%= p.label :company, "Enter company's name" %>
+  <%= p.text_field :company %>
+  <%= p.submit %>
+<% end %>
