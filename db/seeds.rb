@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Position.destroy_all
+Skill.destroy_all
 
 
 # user1 = User.create!(name: "Stan", email: "stan@gmail.com", password: "123456")
@@ -14,3 +15,7 @@ Position.destroy_all
 position1 = Position.create!(title: "Ruby developer", company: "AirTNT")
 position2 = Position.create!(title: "React developer", company: "Alfred")
 
+skills = %w(Design Rails Product Startup HTML/CSS UX UI React Angular Ruby PHP Java Backend Frontend Marketing)
+skills.each do |skill|
+  Skill.create!(name: skill)
+end
