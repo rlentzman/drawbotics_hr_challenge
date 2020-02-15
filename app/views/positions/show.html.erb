@@ -1,3 +1,7 @@
 <h3><%= @position.title %></h3>
 <p>position at: <%= @position.company %></p>
+<% @position.skills.each do |skill| %>
+  <%= skill.name %>
+<% end %>
+
 <p><%= link_to "All positions", positions_path %></p>

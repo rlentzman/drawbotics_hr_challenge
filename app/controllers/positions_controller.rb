@@ -12,14 +12,16 @@ class PositionsController < ApplicationController
   end
 
   def create
+
     @position = Position.new(position_params)
     @position.save
+
     redirect_to positions_path
   end
 
   private
 
   def position_params
-    params.require(:position).permit(:title, :company)
+    params.require(:position).permit(:title, :company, :skill_ids => [])
   end
 end

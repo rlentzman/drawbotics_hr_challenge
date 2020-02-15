@@ -1,4 +1,12 @@
-<% @positions.each do |position| %>
-  <h4><%= link_to position.title, position_path(position) %></h4>
 
-<% end %>
+<h3>All positions</h3>
+<div class="container-positions">
+  <div class="positions-titles">
+    <% @positions.each do |position| %>
+      <h4><%= link_to position.title, position_path(position) %></h4>
+    <% end %>
+  </div>
+
+</div>
+
+<%= link_to "+ New position", new_position_path, class: "btn btn-primary"%>

@@ -1,0 +1,5 @@
+<% @candidates.each do |candidate| %>
+  <%= link_to candidate_path(candidate) do %>
+    <h3><%= candidate.first_name %> <%= candidate.last_name %></h3>
+  <% end %>
+<% end %>
