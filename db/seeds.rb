@@ -13,10 +13,10 @@ Candidate.destroy_all
 
 # user1 = User.create!(name: "Stan", email: "stan@gmail.com", password: "123456")
 
-position1 = Position.create!(title: "Ruby developer", company: "AirTNT")
-position2 = Position.create!(title: "React developer", company: "Alfred")
+# position1 = Position.create!(title: "Ruby developer", company: "AirTNT", seniority: "junior")
+# position2 = Position.create!(title: "React developer", company: "Alfred", seniority: "senior")
 
-skills = %w(Design Rails Product Startup HTML/CSS UX UI React Angular Ruby PHP Java Backend Frontend Marketing)
+skills = %w(Design Ruby Rails Python Django JavaScript Node.js Vue.js Product Startup HTML/CSS UX UI React Angular PHP Java Backend Frontend Fullstack Marketing)
 skills.each do |skill|
   Skill.create!(name: skill)
 end

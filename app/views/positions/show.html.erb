@@ -1,4 +1,4 @@
-<h3><%= @position.title %></h3>
+<h3><%= @position.seniority %> <%= @position.title %></h3>
 <p>position at: <%= @position.company %></p>
 <% @position.skills.each do |skill| %>
   <%= skill.name %>

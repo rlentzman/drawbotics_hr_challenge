@@ -24,6 +24,7 @@
             <% end %>
           </div>
         </div>
+        <%= p.input :seniority, collection: Position::STATUSES, prompt: "Select" %>
         <%= p.submit "Save", class: "btn btn-primary"%>
         <% end %>
       </div>

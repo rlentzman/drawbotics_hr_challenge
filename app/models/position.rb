@@ -6,4 +6,7 @@ class Position < ApplicationRecord
   has_many :scorecards
   validates :title, presence: true
   validates :company, presence: true
+
+  STATUSES = ["junior", "mid", "senior"]
+  validates :seniority, inclusion: { in: STATUSES }
 end

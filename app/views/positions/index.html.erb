@@ -1,12 +1,22 @@
 
 <h3>All positions</h3>
-<div class="container-positions">
-  <div class="positions-titles">
-    <% @positions.each do |position| %>
-      <h4><%= link_to position.title, position_path(position) %></h4>
-    <% end %>
+<div class="positions-titles">
+  <div class="container">
+    <div class="row justify-content-between">
+      <% @positions.each do |position| %>
+        <div class="col-5">
+          <%= link_to position_path(position) do %>
+            <h4><%= position.seniority %> <%= position.title %></h4>
+          <% end %>
+        </div>
+        <div class="col-5">
+          <% position.skills.each do |skill| %>
+            #<%= skill.name %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
 </div>
 
 <%= link_to "+ New position", new_position_path, class: "btn btn-primary"%>
