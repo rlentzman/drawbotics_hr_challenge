@@ -1,6 +1,33 @@
-<% @candidates.each do |candidate| %>
-  <%= link_to candidate_path(candidate) do %>
-    <h3><%= candidate.first_name %> <%= candidate.last_name %></h3>
-  <% end %>
-<% end %>
+<table style="width:40%">
+  <thead>
+    <tr>
+      <th>Candidate</th>
+      <th colspan="2">Applications</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @candidates.each do |candidate| %>
+      <td>
+        <%= link_to candidate_path(candidate) do %>
+          <p><%= candidate.first_name %> <%= candidate.last_name %></p>
+        <% end %>
+      </td>
+        <% candidate.applications.each do |application| %>
+          <td>
+            <%= link_to position_path(application.position) do %>
+              <p><%= application.position.title %></p>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+
 <%= link_to "+ New candidate", new_candidate_path, class: "btn btn-primary"%>
+
+
+
+

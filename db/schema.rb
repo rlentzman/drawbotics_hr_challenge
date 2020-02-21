@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_222032) do
+ActiveRecord::Schema.define(version: 2020_02_17_202849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.bigint "position_id"
+    t.bigint "candidate_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "score"
+    t.bigint "recruiter_id"
+    t.index ["candidate_id"], name: "index_applications_on_candidate_id"
+    t.index ["position_id"], name: "index_applications_on_position_id"
+    t.index ["recruiter_id"], name: "index_applications_on_recruiter_id"
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "start_at"
@@ -24,15 +36,6 @@ ActiveRecord::Schema.define(version: 2020_02_15_222032) do
     t.datetime "updated_at", null: false
     t.index ["candidate_id"], name: "index_appointments_on_candidate_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
-  end
-
-  create_table "candidate_positions", force: :cascade do |t|
-    t.bigint "candidate_id"
-    t.bigint "position_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_candidate_positions_on_candidate_id"
-    t.index ["position_id"], name: "index_candidate_positions_on_position_id"
   end
 
   create_table "candidate_skills", force: :cascade do |t|
@@ -49,10 +52,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_222032) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.string "last_name"
     t.string "linkedin"
-    t.index ["user_id"], name: "index_candidates_on_user_id"
+    t.string "seniority"
   end
 
   create_table "position_skills", force: :cascade do |t|
@@ -74,18 +76,13 @@ ActiveRecord::Schema.define(version: 2020_02_15_222032) do
     t.index ["user_id"], name: "index_positions_on_user_id"
   end
 
-  create_table "scorecards", force: :cascade do |t|
-    t.bigint "candidate_id"
-    t.bigint "user_id"
-    t.text "experience"
-    t.integer "score"
-    t.bigint "position_id"
-    t.text "interest_in_the_company"
+  create_table "recruiters", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "seniority"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_scorecards_on_candidate_id"
-    t.index ["position_id"], name: "index_scorecards_on_position_id"
-    t.index ["user_id"], name: "index_scorecards_on_user_id"
+    t.string "email"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -107,16 +104,14 @@ ActiveRecord::Schema.define(version: 2020_02_15_222032) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "applications", "candidates"
+  add_foreign_key "applications", "positions"
+  add_foreign_key "applications", "recruiters"
   add_foreign_key "appointments", "candidates"
   add_foreign_key "appointments", "users"
-  add_foreign_key "candidate_positions", "candidates"
-  add_foreign_key "candidate_positions", "positions"
   add_foreign_key "candidate_skills", "candidates"
   add_foreign_key "candidate_skills", "skills"
   add_foreign_key "position_skills", "positions"
   add_foreign_key "position_skills", "skills"
   add_foreign_key "positions", "users"
-  add_foreign_key "scorecards", "candidates"
-  add_foreign_key "scorecards", "positions"
-  add_foreign_key "scorecards", "users"
 end

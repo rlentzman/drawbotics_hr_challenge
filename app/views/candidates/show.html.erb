@@ -1,4 +1,23 @@
 <h3><%= @candidate.first_name %> <%= @candidate.last_name %></h3>
 <p>email: <%= @candidate.email %></p>
 <p>LinkedIn: <%= @candidate.linkedin %></p>
+<p>Skills:<% @candidate.skills.each do |skill| %>
+  #<%= skill.name %></p>
+<% end %>
+
+<%= simple_form_for([@candidate, @application]) do |p| %>
+  <% if @application.errors.any? %>
+    <div class="errors-container">
+      <ul>
+        <% @application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= p.association :position, :include_blank => false, :label_method => lambda { |position| "#{position.title}" }, prompt: "Select" %>
+  <%= p.submit %>
+<% end %>
 <p><%= link_to "Back to all applicants", candidates_path %></p>
+
+
