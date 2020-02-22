@@ -4,6 +4,5 @@ class Application < ApplicationRecord
   # belongs_to :recruiter
   has_one :scorecard
 
-  validates :position_id, uniqueness: true
-  validates :candidate_id, uniqueness: true
+  validates_uniqueness_of :position, scope: :candidate
 end

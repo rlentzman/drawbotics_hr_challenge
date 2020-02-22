@@ -6,13 +6,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <% @candidates.each do |candidate| %>
-      <td>
-        <%= link_to candidate_path(candidate) do %>
-          <p><%= candidate.first_name %> <%= candidate.last_name %></p>
-        <% end %>
-      </td>
+    <% @candidates.each do |candidate| %>
+      <tr>
+        <td>
+          <%= link_to candidate_path(candidate) do %>
+            <p><%= candidate.first_name %> <%= candidate.last_name %></p>
+          <% end %>
+        </td>
         <% candidate.applications.each do |application| %>
           <td>
             <%= link_to position_path(application.position) do %>
@@ -20,8 +20,8 @@
             <% end %>
           </td>
         <% end %>
-      <% end %>
-    </tr>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 

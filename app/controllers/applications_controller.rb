@@ -1,4 +1,8 @@
 class ApplicationsController < ApplicationController
+  def show
+    @application = Application.find(params[:id])
+  end
+
   def new
     @candidate = Candidate.find(params[:candidate_id])
     @application = Application.new
@@ -16,6 +20,7 @@ class ApplicationsController < ApplicationController
         render "candidates/show" and return
       end
     end
+    # redirect_to candidate_application_path(params[:application_id])
     redirect_to candidate_path(@candidate)
   end
 end
