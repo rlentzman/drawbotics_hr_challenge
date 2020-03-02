@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>Candidate</th>
-      <th colspan="2">Applications</th>
+      <th>Positions applied</th>
     </tr>
   </thead>
   <tbody>
@@ -13,13 +13,18 @@
             <p><%= candidate.first_name %> <%= candidate.last_name %></p>
           <% end %>
         </td>
-        <% candidate.applications.each do |application| %>
-          <td>
-            <%= link_to position_path(application.position) do %>
-              <p><%= application.position.title %></p>
-            <% end %>
-          </td>
-        <% end %>
+        <td>
+          <% candidate.applications.each do |application| %>
+            <p><%= link_to position_path(application.position) do %>
+              <%= application.position.title %>
+            <% end %></p>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to candidate_applications_path(candidate) do %>
+            <p>Go to open applications</p>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

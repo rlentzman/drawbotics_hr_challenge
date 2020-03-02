@@ -1,7 +1,7 @@
 <h3><%= @position.seniority %> <%= @position.title %></h3>
 <p>position at: <%= @position.company %></p>
-<% @position.skills.each do |skill| %>
-  <%= skill.name %>
-<% end %>
-
+<p><% @position.skills.each do |skill| %>
+  #<%= skill.name %>
+<% end %></p>
+<p><%= link_to "Delete position", position_path(@position), method: :delete, data: {confirm: "Deleting the position. Are you sure?"} %></p>
 <p><%= link_to "All positions", positions_path %></p>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <h4>All employees available for recruitment of new candidates</h4>
+  </div>
+  <div class="row justify-content-center">
+    <table style="width:60%">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Skills</th>
+          <th>Seniority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recruiters.each do |recruiter| %>
+          <tr>
+            <td>
+              <p><%= recruiter.first_name %> <%= recruiter.last_name %></p>
+            </td>
+            <td>
+              <% recruiter.skills.each do |skill| %>
+                <p>#<%= skill.name %>
+              <% end %></p>
+            </td>
+            <td>
+              <p><%= recruiter.seniority %></p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= link_to "+ New recruiter", new_recruiter_path, class: "btn btn-primary"%>

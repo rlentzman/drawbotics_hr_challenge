@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_21_205828) do
+ActiveRecord::Schema.define(version: 2020_03_02_211713) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "applications", force: :cascade do |t|
@@ -73,7 +74,17 @@ ActiveRecord::Schema.define(version: 2020_02_21_205828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "seniority"
+    t.text "top_recruiters", default: "--- []\n"
     t.index ["user_id"], name: "index_positions_on_user_id"
+  end
+
+  create_table "recruiter_skills", force: :cascade do |t|
+    t.bigint "skill_id"
+    t.bigint "recruiter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recruiter_id"], name: "index_recruiter_skills_on_recruiter_id"
+    t.index ["skill_id"], name: "index_recruiter_skills_on_skill_id"
   end
 
   create_table "recruiters", force: :cascade do |t|
@@ -83,6 +94,8 @@ ActiveRecord::Schema.define(version: 2020_02_21_205828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.hstore "skills_match"
+    t.index ["skills_match"], name: "index_recruiters_on_skills_match", using: :gist
   end
 
   create_table "skills", force: :cascade do |t|
@@ -114,4 +127,6 @@ ActiveRecord::Schema.define(version: 2020_02_21_205828) do
   add_foreign_key "position_skills", "positions"
   add_foreign_key "position_skills", "skills"
   add_foreign_key "positions", "users"
+  add_foreign_key "recruiter_skills", "recruiters"
+  add_foreign_key "recruiter_skills", "skills"
 end

@@ -2,8 +2,8 @@
 <p>email: <%= @candidate.email %></p>
 <p>LinkedIn: <%= @candidate.linkedin %></p>
 <p>Skills:<% @candidate.skills.each do |skill| %>
-  #<%= skill.name %></p>
-<% end %>
+  #<%= skill.name %>
+<% end %></p>
 
 <%= simple_form_for([@candidate, @application]) do |p| %>
   <% if @application.errors.any? %>

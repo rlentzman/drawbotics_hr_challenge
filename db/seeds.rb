@@ -7,8 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Position.destroy_all
-Skill.destroy_all
 Candidate.destroy_all
+Recruiter.destroy_all
+Skill.destroy_all
 
 
 # user1 = User.create!(name: "Stan", email: "stan@gmail.com", password: "123456")
@@ -21,5 +22,5 @@ skills.each do |skill|
   Skill.create!(name: skill)
 end
 
-Candidate.create!(first_name: "Maya", last_name: "Finkler", email: "maya@gmail.com")
-Candidate.create!(first_name: "Robert", last_name: "Lentzman", email: "lentzman@gmail.com", linkedin: "www.linkedin.com/rlentzman")
+# Candidate.create!(first_name: "Maya", last_name: "Finkler", email: "maya@gmail.com")
+# Candidate.create!(first_name: "Robert", last_name: "Lentzman", email: "lentzman@gmail.com", linkedin: "www.linkedin.com/rlentzman")

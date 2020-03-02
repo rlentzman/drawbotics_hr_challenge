@@ -1,2 +1,21 @@
-<h1>Applications#index</h1>
-<p>Find me in app/views/applications/index.html.erb</p>
+<h1>Current open applications of <%= @candidate.first_name %></h1>
+<% if @candidate.applications.empty? %>
+  <p><%= @candidate.first_name %> has not been matched with any position yet.</p>
+<% else %>
+  <p><%= link_to @candidate.first_name, candidate_path(@candidate) %> has been added to the <% @candidate.applications.each do |application| %>
+    #<%= link_to application.position.title, position_path(application.position) %>
+    <% end %>
+  <%= @candidate.applications.count == 1 ? 'position' : 'positions' %>!</p>
+  <p>Match <%= @candidate.first_name %> with a recruiter for each of these open applications</p>
+  <% @candidate.applications.each do |application| %>
+    <%= application.position.title %>
+  <% end %>
+  <p>Recruiters available:
+    <% @candidate.applications.each do |application| %>
+      <% application.position.top_recruiters.each do |recruiter| %>
+        <%= recruiter.first_name %> <%= recruiter.last_name %>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
+

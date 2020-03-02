@@ -1,4 +1,5 @@
 class Position < ApplicationRecord
+  serialize :top_recruiters
   belongs_to :user, optional: true
   has_many :applications, dependent: :destroy
   has_many :candidates, through: :applications
