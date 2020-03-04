@@ -5,12 +5,7 @@ class ApplicationsController < ApplicationController
 
   def index
     @applications = Application.all
-
     @candidate = Candidate.find(params[:candidate_id])
-    # @position = Position.find(params[:position_id])
-    # @position = Position.where(id: params[:application][:position_id])
-    # @recruiters = Recruiter.all
-    # matching_recr_pos_skills
   end
 
   def new
@@ -33,6 +28,26 @@ class ApplicationsController < ApplicationController
     redirect_to candidates_path
   end
 
+  def edit
+    @application = Application.find(params[:id])
+  end
+
+  def update
+    @candidate = Candidate.find(params[:candidate_id])
+    @application = Application.find(params[:id])
+    @position = @application.position
+    @recruiter = Recruiter.find(params[:application][:recruiter_id])
+    @application.recruiter_id = @recruiter.id
+    # @application.recruiter = Recruiter.find(@application.recruiter_id)
+    @application.update(candidate: @candidate, position: @position)
+    redirect_to candidate_applications_path(@candidate)
+  end
+
+  # private
+
+  # def application_params
+  #   params.require(:application).permit(:position_id, :candidate_id, :recruiter_id)
+  # end
   # def matching_recr_pos_skills(position)
   #   @recruiters.each do |recruiter|
   #     recr_pos_match = {

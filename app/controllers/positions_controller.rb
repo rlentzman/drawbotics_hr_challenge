@@ -14,24 +14,10 @@ class PositionsController < ApplicationController
   def create
     @recruiters = Recruiter.all
     @position = Position.new(position_params)
-    # top_recruiters(@position)
-    skills_recruiters_position(@position)
-    recruiters_array = seniority_recruiters_position(@position).reject do |recruiter|
-      recruiter.skills_match[@position.title].to_i == 0
-    end
-    # recruiters_array = seniority_recruiters_position(@position)
-    @position.top_recruiters = []
-    @position.top_recruiters << recruiters_array.sort_by { |recruiter| recruiter.skills_match[@position.title] }.reverse!.first(3)
-    @position.top_recruiters.flatten!
+    top_recruiters(@position)
     @position.save
     redirect_to positions_path
   end
-
-  # def destroy
-  #   @position = Position.find(params[:id])
-  #   @position.destroy!
-  #   redirect_to positions_path
-  # end
 
   def destroy
     @position = Position.find(params[:id])
@@ -50,9 +36,7 @@ class PositionsController < ApplicationController
 
   def skills_recruiters_position(position)
     @recruiters.each do |recruiter|
-      # recruiter.skills_match = {}
       recruiter.skills_match[position.title] = (recruiter.skills & position.skills).length
-
       recruiter.save
     end
   end
@@ -68,16 +52,12 @@ class PositionsController < ApplicationController
     end
   end
 
-  # def top_recruiters(position)
-  #   skills_recruiters_position(position)
-  #   recruiters_array = seniority_recruiters_position(position).reject do |recruiter|
-  #     recruiter.skills_match[position.title][:skills] == 0
-  #   end
-  #   position.top_recruiters << recruiters_array.sort_by { |recruiter| recruiter.skills_match[position.title][:skills] }.reverse!.first(3)
-  #   position.top_recruiters.flatten!
-  # end
-
-      # @position.top_recruiters << recruiters_array.sort_by { |recruiter| recruiter.skills_match[@position.title] }.reverse!.first(3)
-
+  def top_recruiters(position)
+    skills_recruiters_position(position)
+    recruiters_array = seniority_recruiters_position(position).reject do |recruiter|
+      recruiter.skills_match[position.title].to_i == 0
+    end
+    position.top_recruiters << recruiters_array.sort_by { |recruiter| recruiter.skills_match[position.title] }.reverse!.first(3)
+    position.top_recruiters.flatten!
+  end
 end
-

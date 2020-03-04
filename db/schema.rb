@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_211713) do
+ActiveRecord::Schema.define(version: 2020_03_04_105607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_211713) do
     t.datetime "updated_at", null: false
     t.integer "score"
     t.bigint "recruiter_id"
+    t.string "recruiter"
     t.index ["candidate_id"], name: "index_applications_on_candidate_id"
     t.index ["position_id"], name: "index_applications_on_position_id"
     t.index ["recruiter_id"], name: "index_applications_on_recruiter_id"

@@ -1,7 +1,7 @@
 class Recruiter < ApplicationRecord
   store_accessor :skills_match
   # serialize :skills_match, Hash
-  # has_many :applications
+  has_many :applications
   has_many :appointments
   # has_many :candidates, through: :applications
   # has_many :positions, through: :applications
