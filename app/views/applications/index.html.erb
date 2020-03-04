@@ -7,61 +7,54 @@
     <% end %>
   <%= @candidate.applications.count == 1 ? 'position' : 'positions' %>!</p>
   <p>Match <%= @candidate.first_name %> with a recruiter for each of these open applications</p>
-  <% @candidate.applications.each do |application| %>
-    <%= application.position.title %>
-  <% end %>
-  <p>Recruiters available:
-    <% @candidate.applications.each do |application| %>
-      <% application.position.top_recruiters.each do |recruiter| %>
-        <%= recruiter.first_name %> <%= recruiter.last_name %>
-      <% end %>
-    <% end %>
-  </p>
-  <% @candidate.applications.each do |application| %>
-    <div>
-      <p>
-        <a data-toggle="collapse" href="#collapseExample<%= application.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
-          <%= application.position.title %>
-        </a>
-      </p>
-      <div class="collapse" id="collapseExample<%= application.id %>">
-        <div class="card card-body">
-          <%= simple_form_for([@candidate, application]) do |p| %>
-            <% if application.errors.any? %>
-              <div class="errors-container">
-                <ul>
-                  <% application.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
+  <div class="container">
+    <div class="row justify-content-center">
+      <% @candidate.applications.each do |application| %>
+        <div class="col-4">
+          <p>
+            <a data-toggle="collapse" href="#collapseExample<%= application.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
+              <%= application.position.title %>
+            </a>
+          </p>
+          <div class="collapse" id="collapseExample<%= application.id %>">
+            <div class="card card-body">
+              <%= simple_form_for([@candidate, application]) do |p| %>
+                <% if application.errors.any? %>
+                  <div class="errors-container">
+                    <ul>
+                      <% application.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+                <div class="collapse-field">
+                  <% unless application.recruiter_id == nil %>
+                    <p><strong><%= Recruiter.find(application.recruiter_id).first_name %> <%= Recruiter.find(application.recruiter_id).last_name %></strong> has already been assigned to this application!</p>
                   <% end %>
-                </ul>
-              </div>
-            <% end %>
-            <div class="row">
-              <div class="col-4">
-                <% if application.recruiter_id == nil %>
-                  <label class="control-label check_boxes optional">Top recruiters</label>
+                  <label class="control-label check_boxes optional">Suggested best-matching recruiters in order: </label>
                   <input type="hidden" name="application[recruiter_id]" value="">
-                  <div class="skill-choices">
+                  <div class="recruiters-choices">
                     <% application.position.top_recruiters.each do |recruiter| %>
-                    <input class="check_boxes optional chb" type="checkbox" value="<%= recruiter.id %>" name="application[recruiter_id]" id="application_recruiter_id_<%= recruiter.id %>">
-                    <label for="application_recruiter_id_<%= recruiter.id %>">
-                      <%= recruiter.first_name %> <%= recruiter.last_name %>
-                    </label>
+                    <div class="checkboxes">
+                      <p><input class="check_boxes optional chb" type="checkbox" value="<%= recruiter.id %>" name="application[recruiter_id]" id="application_recruiter_id_<%= recruiter.id %>">
+                      <label for="application_recruiter_id_<%= recruiter.id %>">
+                        <%= recruiter.first_name %> <%= recruiter.last_name %>
+                      </label></p>
+                    </div>
                     <% end %>
                   </div>
                   <%= p.submit "Assign", class: "btn btn-primary"%>
-                <% else %>
-                  <%= Recruiter.find(application.recruiter_id).first_name %> has already been assigned to this application!
-                <% end %>
-              </div>
+                </div>
+              <% end %>
+    <!--           <% application.position.top_recruiters.each do |recruiter| %>
+                <p><%= recruiter.first_name %> <%= recruiter.last_name %></p>
+              <% end %> -->
             </div>
-          <% end %>
-<!--           <% application.position.top_recruiters.each do |recruiter| %>
-            <p><%= recruiter.first_name %> <%= recruiter.last_name %></p>
-          <% end %> -->
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>
 
